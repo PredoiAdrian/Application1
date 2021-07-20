@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>SecondPage</title>
+	
+	<style>
+	body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.topnav-right {
+  float: right;
+}
+	 li{
+	   cursor:pointer;
+	 }
+	 
+	 input{
+	 margin-left:30px;
+	 }
+	 h1{
+	  margin-left:30px;
+	 }
+	</style>
+	
+</head>
+<body>
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+
+  
+  <div class="topnav-right">
+    <a href="FirstPage.html">Main Page</a>
+  </div>
+</div>
+
+     <h1>Here you can add the items for your list : </h1>
+
+
+
+  <input type="text" id="txt"/>
+  <button onclick="addLI()">Add</button>	
+  <button onclick="editLI()">Edit</button>
+  <button onclick="deleteLI()">Delete</button>
+  
+  <ul id="list">
+  </ul>
+  
+  
+  
+  <script>
+  
+     var inputText=document.getElementById("txt"),
+	 items = document.querySelectorAll("#list li"),
+	 tab = [] , index;
+	  
+	  for(var i=0;i<items.length;i++){
+	   tab.push(items[i].innerHTML);
+	  }
+	  
+	  for(var i=0;i<items.length;i++){
+	    items[i].onclick = function (){
+		  index = tab.indexOf(this.innerHTML);
+		  console.log(this.innerHTML +  " INDEX = " + index);
+		  inputText.value = this.innerHTML;
+		};
+	  }
+	  
+	  
+	
+	
+	
+      function refreshArray(){
+	 tab.length = 0;
+	 items = document.querySelectorAll("#list li");
+	
+	 for(var i=0;i<items.length;i++){
+		  tab.push(items[i].innerHTML);
+		}
+	 }
+    
+    function addLI(){
+	  var listNode = document.getElementById("list"),
+	      textNode = document.createTextNode(inputText.value),
+		  liNode = document.createElement("LI");
+		  
+		  liNode.appendChild(textNode);
+		  listNode.appendChild(liNode);
+		  
+		  refreshArray();
+
+          liNode.onclick = function (){
+		  index = tab.indexOf(liNode.innerHTML);
+		  console.log(liNode.innerHTML +  " INDEX = " + index);
+		  inputText.value = liNode.innerHTML;
+		};  	  
+	}
+	 function editLI(){
+	  items[index].innerHTML=inputText.value;
+	  refreshArray();
+	 }
+	 
+	 function deleteLI(){
+	 refreshArray();
+	 
+	 if(items.length >0){
+	 items[index].parentNode.removeChild(items[index]);
+	  inputText.value = "";
+	 }
+    }
+	 
+	
+  </script>
+  
+  
+  
+  
+  
+</body>
+</html>
